@@ -133,5 +133,7 @@
         ></textarea>
     </div>
 
-    <button type="submit">Регистрация</button>
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+    <button type="submit" [disabled]="signUpForm.invalid">Регистрация</button>
 </form>
