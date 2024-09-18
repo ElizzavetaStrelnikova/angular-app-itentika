@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
     providedIn: 'root',
@@ -9,43 +9,65 @@ export class AuthService {
     private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
     public isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
 
-    constructor(private http: HttpClient) {
-        const token = localStorage.getItem('token');
-        this.isAuthenticatedSubject.next(!!token);
+    constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+        this.initializeAuthStatus();
+    }
+
+    private initializeAuthStatus() {
+        if (isPlatformBrowser(this.platformId)) {
+            const token = localStorage.getItem('token');
+            this.isAuthenticatedSubject.next(!!token);
+        }
     }
 
     login(email: string, password: string): boolean {
-        const users = JSON.parse(localStorage.getItem('users') || '{}');
-        const user = users[email];
+        if (isPlatformBrowser(this.platformId)) {
+            const users = this.getUsers();
+            const user = users[email];
 
-        if (user && user.password === password) {
-            localStorage.setItem('token', 'sampleToken'); 
-            this.isAuthenticatedSubject.next(true);
-            return true;
+            if (user && user.password === password) {
+                localStorage.setItem('token', 'sampleToken');
+                this.isAuthenticatedSubject.next(true);
+                return true;
+            }
         }
         return false;
     }
 
     logout() {
-        localStorage.removeItem('token');
-        this.isAuthenticatedSubject.next(false);
+        if (isPlatformBrowser(this.platformId)) {
+            localStorage.removeItem('token');
+            this.isAuthenticatedSubject.next(false);
+        }
     }
 
     isAuthenticated(): boolean {
         return this.isAuthenticatedSubject.value;
     }
 
-    register(userData: any): Observable<any> {
-        
-        const existingUsers = JSON.parse(localStorage.getItem('users') || '{}');
-        
-        if (existingUsers[userData.email]) {
-            return of({ error: 'Пользователь с таким email уже существует.' });
+    register(userData: { email: string; password: string }): boolean {
+        if (isPlatformBrowser(this.platformId)) {
+            const users = this.getUsers();
+            if (users[userData.email]) {
+                return false; // Пользователь уже существует
+            }
+            users[userData.email] = { password: userData.password };
+            localStorage.setItem('users', JSON.stringify(users));
+            return true;
         }
+        return false;
+    }
 
-        existingUsers[userData.email] = userData;
-        localStorage.setItem('users', JSON.stringify(existingUsers));
-        
-        return of({ success: true });
+    private getUsers(): { [key: string]: { password: string } } {
+        if (isPlatformBrowser(this.platformId)) {
+            try {
+                const usersString = localStorage.getItem('users');
+                return usersString ? JSON.parse(usersString) : {};
+            } catch (error) {
+                console.error('Error parsing users from localStorage', error);
+                return {}; // Возвращаем пустой объект в случае ошибки
+            }
+        }
+        return {}; 
     }
 }
