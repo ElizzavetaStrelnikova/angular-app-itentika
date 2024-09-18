@@ -27,9 +27,9 @@ export class SignInPageComponent implements OnInit {
         if (userData) {
             const user = JSON.parse(userData);
             if (user.password === this.loginForm.password) {
-                this.errorMessage = null; // Сбрасываем сообщение об ошибке
-                // Перенаправляем на главную страницу после успешной аутентификации
-                this.router.navigate(['']);
+                this.errorMessage = null; 
+                localStorage.setItem('userEmail', this.loginForm.email); 
+                this.router.navigate(['user-info']); 
             } else {
                 this.errorMessage = "Неверный пароль.";
             }
