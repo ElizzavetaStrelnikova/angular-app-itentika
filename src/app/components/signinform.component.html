@@ -1,0 +1,47 @@
+<form>
+    <div>
+        <label>Email</label>
+        <input
+            type="text"
+            [(ngModel)]="loginForm.email"
+            max="100"
+            #email="ngModel"
+            required
+        />
+    </div>
+    <div>
+        <label>Пароль</label>
+        <input
+            type="password"
+            [(ngModel)]="loginForm.password"
+            max="20"
+            #password="ngModel"
+            required
+        />
+    </div>
+
+    <div
+        *ngIf="email.invalid && (email.dirty || email.touched)"
+    >
+        <div *ngIf="email.errors && email.errors['required']">
+                Обязательное поле
+        </div>
+        <div *ngIf="email.errors && email.errors['max']">
+                Длина названия почты не должна превышать 100 символов
+        </div>
+    </div>
+
+    <div
+        *ngIf="password.invalid && (password.dirty || password.touched)"
+        >
+        <div *ngIf="password.errors && password.errors['required']">
+            Обязательное поле
+        </div>
+        <div *ngIf="password.errors && password.errors['max']">
+            Длина пароля  не должна превышать 20 символов
+        </div>
+    </div>
+
+    <button (click)="submitSignInForm()">Войти</button>
+    <button (click)="goToSignUpPage()">Регистрация</button>
+</form>

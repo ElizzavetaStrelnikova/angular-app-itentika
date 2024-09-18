@@ -1,0 +1,137 @@
+<form (ngSubmit)="onSubmit()" #signUpForm="ngForm">
+    <div>
+        <label>Email <span class="required-field">*</span></label>
+        <input
+            type="email"
+            [(ngModel)]="loginForm.email"
+            #email="ngModel"
+            name="email"
+            required
+            email
+        />
+        <div *ngIf="email.invalid && (email.dirty || email.touched)">
+            <div *ngIf="email.errors && email.errors['required']">Обязательное поле</div>
+            <div *ngIf="email.errors && email.errors['email']">Неверный формат email</div>
+        </div>
+    </div>
+
+    <div>
+        <label>Пароль <span class="required-field">*</span></label>
+        <input
+            type="password"
+            [(ngModel)]="loginForm.password"
+            #password="ngModel"
+            name="password"
+            required
+            minlength="6"
+        />
+        <div *ngIf="password.invalid && (password.dirty || password.touched)">
+            <div *ngIf="password.errors && password.errors['required']">Обязательное поле</div>
+            <div *ngIf="password.errors && password.errors['minlength']">Пароль должен содержать минимум 6 символов</div>
+        </div>
+    </div>
+
+    <div>
+        <label>Подтверждение пароля <span class="required-field">*</span></label>
+        <input
+            type="password"
+            name="confirmPassword"
+            [(ngModel)]="loginForm.confirm_password"
+            #confirmPassword="ngModel"
+            required
+        />
+        <div *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)">
+            <div *ngIf="confirmPassword.errors && confirmPassword.errors['required']">Обязательное поле</div>
+            <div *ngIf="loginForm.password !== loginForm.confirm_password">Пароли не совпадают</div>
+        </div>
+    </div>
+
+    <div>
+        <label>Имя <span class="required-field">*</span></label>
+        <input
+            type="text"
+            [(ngModel)]="loginForm.name"
+            #name="ngModel"
+            name="name"
+            required
+        />
+        <div *ngIf="name.invalid && (name.dirty || name.touched)">
+            <div *ngIf="name.errors && name.errors['required']">Обязательное поле</div>
+        </div>
+    </div>
+
+    <div>
+        <label>Фамилия <span class="required-field">*</span></label>
+        <input
+            type="text"
+            [(ngModel)]="loginForm.surname"
+            #surname="ngModel"
+            name="surname"
+            required
+        />
+        <div *ngIf="surname.invalid && (surname.dirty || surname.touched)">
+            <div *ngIf="surname.errors && surname.errors['required']">Обязательное поле</div>
+        </div>
+    </div>
+
+    <div>
+        <label>Телефон <span class="required-field">*</span></label>
+        <input
+            type="tel"
+            [(ngModel)]="loginForm.phone"
+            #phone="ngModel"
+            required
+            name="phone"
+            pattern="^\\+?[0-9]{10,15}$"
+        />
+        <div *ngIf="phone.invalid && (phone.dirty || phone.touched)">
+            <div *ngIf="phone.errors && phone.errors['required']">Обязательное поле</div>
+            <div *ngIf="phone.errors && phone.errors['pattern']">Неверный формат телефона</div>
+        </div>
+    </div>
+
+    <div>
+        <label>Дата рождения</label>
+        <input
+            type="date"
+            name="date"
+            [(ngModel)]="loginForm.date"
+            #date="ngModel"
+        />
+    </div>
+
+    <div>
+        <label>Пол</label>
+        <select [(ngModel)]="loginForm.gender" name="gender" #gender="ngModel" required>
+            <option value="" disabled selected>Выберите пол</option>
+            <option value="male">Мужской</option>
+            <option value="female">Женский</option>
+            <option value="other">Другой</option>
+        </select>
+        <div *ngIf="gender.invalid && (gender.dirty || gender.touched)">
+            <div *ngIf="gender.errors && gender.errors['required']">Обязательное поле</div>
+        </div>
+    </div>
+
+    <div>
+        <label>Город проживания</label>
+        <input
+            type="text"
+            [(ngModel)]="loginForm.city"
+            #city="ngModel"
+            name="city"
+        />
+    </div>
+
+    <div>
+        <label>Дополнительная информация</label>
+        <textarea
+            [(ngModel)]="loginForm.extrainfo"
+            name="extrainfo"
+            #extrainfo="ngModel"
+            maxlength="200"
+        ></textarea>
+    </div>
+
+    <button type="submit">Регистрация</button>
+</form>
