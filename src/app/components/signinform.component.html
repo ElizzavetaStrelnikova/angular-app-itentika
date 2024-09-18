@@ -1,4 +1,4 @@
-<form>
+<form (ngSubmit)="login()">
     <div>
         <label>Email</label>
         <input
@@ -42,6 +42,8 @@
         </div>
     </div>
 
-    <button (click)="submitSignInForm()">Войти</button>
-    <button (click)="goToSignUpPage()">Регистрация</button>
+    <div *ngIf="errorMessage" >{{ errorMessage }}</div> 
+
+    <button type="submit" [disabled]="email.invalid || password.invalid">Войти</button> 
+    <button type="button" (click)="goToSignUpPage()">Регистрация</button> 
 </form>
