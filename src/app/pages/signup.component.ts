@@ -46,9 +46,8 @@ export class SignUpPageComponent implements OnInit {
             return;
         }
 
-        // Сохраняем данные пользователя в localStorage
         localStorage.setItem(this.loginForm.email, JSON.stringify(this.loginForm));
-        this.errorMessage = null; // Сбрасываем сообщение об ошибке
-        this.router.navigate(['']); // Перенаправляем на главную страницу или страницу входа
+        this.errorMessage = null; 
+        this.router.navigate(['']); 
     }
 }
