@@ -1,3 +1,79 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4; /* Светлый фон страницы */
+    margin: 0;
+    padding: 0;
+}
+
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* Вертикальная ориентация */
+    height: 100vh; /* Высота экрана */
+    background-color: #eef; /* Цвет фона формы */
+}
+
+form {
+    background: white;
+    padding: 20px;
+    border-radius: 8px; /* Закругленные углы */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Тень для формы */
+    width: 400px; /* Ширина формы */
+}
+
+h2 {
+    text-align: center;
+    color: #333; /* Цвет заголовка */
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555; /* Цвет меток */
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px; /* Закругленные углы полей */
+    border: 1px solid #ccc; /* Цвет границы */
+    box-sizing: border-box; /* Учитывать отступы и границы в общей ширине */
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #007bff; /* Цвет границы при фокусе */
+    outline: none; /* Удалить стандартное обрамление */
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff; /* Синий фон кнопки */
+    border: none;
+    border-radius: 4px; /* Закругленные углы кнопки */
+    color: white; /* Белый цвет текста на кнопке */
+    font-weight: bold; /* Полужирный текст */
+    cursor: pointer; /* Курсор в виде руки при наведении */
+    transition: background-color 0.3s; /* Плавный переход цвета фона */
+}
+
+button:hover {
+    background-color: #0056b3; /* Более темный синий при наведении */
+}
+
+.error-message {
+    color: red; /* Красный цвет для сообщений об ошибках */
+    font-size: 0.9em; /* Уменьшенный размер текста */
+    margin: 10px 0;
+}
+
 .required-field {
-    color: red;
+    color: red; /* Красный цвет для обязательных полей */
 }

@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
     standalone: true,
     imports: [FormsModule, CommonModule],
     templateUrl: '../components/signinform.component.html',
-    styleUrls: ['../components/signinform.component.css']
+    styleUrls: ['../components/signupform.component.css']
 })
 export class SignInPageComponent implements OnInit {
     loginForm: any = {
